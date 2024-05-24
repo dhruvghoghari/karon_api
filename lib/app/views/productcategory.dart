@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:karon_api/app/screens/viewproductCategory.dart';
+import 'package:karon_api/app/views/viewproductCategory.dart';
 
 class ProductCategory extends StatefulWidget {
 

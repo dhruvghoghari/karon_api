@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:karon_api/app/screens/homepage.dart';
-import 'package:karon_api/app/screens/productcategory.dart';
-import 'package:karon_api/app/screens/profile.dart';
+import 'package:karon_api/app/views/productcategory.dart';
+import 'package:karon_api/app/views/jsonplaceholder/getdummy.dart';
+import 'package:karon_api/app/views/profile.dart';
+
+import 'homepage.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

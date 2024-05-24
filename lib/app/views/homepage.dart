@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:karon_api/app/controllers/homecontroller.dart';
 import 'package:karon_api/models/produtsmodel.dart';
 import 'package:http/http.dart' as http;
+import '../../utils/drawer.dart';
 import 'detailsproduct.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,9 +16,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  HomeController homeCon = Get.put(HomeController());
   TextEditingController searchController = TextEditingController();
 
-  List<ProductsModel>? allData;
+   List<ProductsModel>? allData;
 
   getData() async
   {
@@ -25,10 +28,11 @@ class _HomePageState extends State<HomePage> {
       var response = await http.get(url);
       if(response.statusCode == 200){
         var body = response.body.toString();// json to convert to string
-        var json = jsonDecode(body);        //
+        var json = jsonDecode(body);
         setState(() {
           allData = json['products'].map<ProductsModel>((obj)=>ProductsModel.fromJson(obj)).toList();
         });
+        //print("get Data======"+allData.toString());
       }
     }
     catch(ex){
@@ -56,7 +60,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:SafeArea(
+        drawer: CustomDrawer(),
+        appBar: AppBar(title: Text(''),),
+        body:SafeArea(
         child: Column(
           children: [
             Row(
@@ -89,7 +95,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             Expanded(child: (allData!=null)?
-
             ListView.builder(
                 itemCount: allData!.length,
                 itemBuilder: (BuildContext context,int index){
@@ -139,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                             Row(
                               children: [
                                 Icon(Icons.star, color: Colors.yellow[700]),
-                                SizedBox(width: 5),
+                                SizedBox(width: 5.w),
                                 Text(
                                   allData![index].rating.toString(),
                                   style: TextStyle(
