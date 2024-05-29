@@ -4,9 +4,10 @@ import 'package:get/get.dart';
 import 'package:karon_api/app/views/jsonplaceholder/comments.dart';
 import 'package:karon_api/app/views/jsonplaceholder/getdummy.dart';
 import 'package:karon_api/app/views/jsonplaceholder/user.dart';
+import 'package:karon_api/app/views/users/addproduct.dart';
 import 'package:karon_api/app/views/loginview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../app/views/login/Login.dart';
 import '../app/views/users/Singleuser.dart';
 import '../app/views/users/userdetails.dart';
 import '../app/views/users/userlist.dart';
@@ -58,6 +59,18 @@ class _CustomDrawerState extends State<CustomDrawer> {
             title: Text("UserDetails"),
             onTap: (){
               Get.to(() => UserDetails());
+            },
+          ),
+          ListTile(
+            title: Text("Login"),
+            onTap: (){
+              Get.to(() => Login());
+            },
+          ),
+          ListTile(
+            title: Text("AddProduct"),
+            onTap: (){
+              Get.to(() => AddProduct());
             },
           ),
           ListTile(

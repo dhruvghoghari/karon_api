@@ -56,7 +56,7 @@ class _LoginViewState extends State<LoginView> {
                                   {
                                     AppTheme.getSnackBar(message: json['message']);
                                     log(json["message"].toString());
-                                    Get.offAll(MainPage());
+                                    Get.offAll(() => MainPage());
                                   }
                                 else
                                   {

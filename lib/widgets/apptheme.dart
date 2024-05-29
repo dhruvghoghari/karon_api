@@ -13,4 +13,25 @@ class AppTheme{
       borderRadius: 45.0.r,
     ));
   }
+
+}
+
+String? nameValidation(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter your Firstname';
+  }
+  return null;
+}
+
+
+String? passwordValidation(String? value) {
+  {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a Password';
+
+    } else if (value.length != 8) {
+      return 'Please enter a valid 10-digit Password';
+    }
+    return null;
+  }
 }

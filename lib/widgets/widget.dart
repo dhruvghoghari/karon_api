@@ -9,7 +9,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final String hintText;
-  final IconData iconData;
+  final IconData? iconData;
   final bool obscureText;
   final String? Function(String?)? validator;
   final int? maxLength;
@@ -22,8 +22,8 @@ class CustomTextFormField extends StatelessWidget {
     required this.controller,
     required this.keyboardType,
     required this.hintText,
-    required this.iconData,
     required this.obscureText,
+    this.iconData,
     this.validator,
     this.maxLength,
     this.suffixIcon,

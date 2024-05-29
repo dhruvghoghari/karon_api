@@ -24,12 +24,11 @@ class _ProfileState extends State<Profile> {
       body: SafeArea(
         child: Column(
           children: [
-            Image.network(homeController.image.value,height: 200,),
+            Image.network(homeController.image.value),
             Text(homeController.name.value),
             Text(homeController.lastName.value),
             Text(homeController.gender.value),
             Text(homeController.email.value)
-
           ],
         ),
       ),
