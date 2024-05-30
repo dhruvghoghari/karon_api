@@ -1,12 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:karon_api/app/controllers/productcontroller.dart';
 import 'package:karon_api/app/views/homepage.dart';
-import 'package:karon_api/app/views/productcategory.dart';
 import 'package:karon_api/widgets/apptheme.dart';
-
 import '../../../widgets/widget.dart';
 
 class AddProduct extends StatefulWidget {
