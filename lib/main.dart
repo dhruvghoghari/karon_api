@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:http/http.dart';
 import 'package:karon_api/app/views/loginview.dart';
+import 'package:karon_api/utils/responsive.dart';
 import 'app/views/mainpage.dart';
 
 void main() {
@@ -12,12 +13,10 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (_ , child){
-        return  GestureDetector(
+    return LayoutBuilder(builder: (context,constraints){
+      return OrientationBuilder(builder: (context, orientation){
+        Responsive().init(constraints,orientation);
+        return GestureDetector(
           onTap: (){
             FocusManager.instance.primaryFocus?.unfocus();
           },
@@ -30,7 +29,9 @@ class MyApp extends StatelessWidget {
             home:MainPage(),
           ),
         );
-      },
+      }
+      );
+    }
     );
   }
 }

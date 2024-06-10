@@ -1,4 +1,4 @@
-class PostsModel {
+class Products {
   int? id;
   String? slug;
   String? url;
@@ -12,7 +12,7 @@ class PostsModel {
   String? updatedAt;
   int? userId;
 
-  PostsModel(
+  Products(
       {this.id,
         this.slug,
         this.url,
@@ -26,7 +26,7 @@ class PostsModel {
         this.updatedAt,
         this.userId});
 
-  PostsModel.fromJson(Map<String, dynamic> json) {
+  Products.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     slug = json['slug'];
     url = json['url'];

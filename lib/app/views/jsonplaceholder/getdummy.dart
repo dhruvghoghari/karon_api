@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:karon_api/models/postmodel.dart';
+import 'package:karon_api/models/products.dart';
 
 class GetDummy extends StatefulWidget {
   const GetDummy({super.key});
@@ -13,7 +13,7 @@ class GetDummy extends StatefulWidget {
 class _GetDummyState extends State<GetDummy> {
 
 
-  List<PostsModel>? allPosts;
+  List<Products>? allPosts;
 
   getPosts() async{
     Uri uri = Uri.parse("https://jsonplaceholder.org/posts");
@@ -22,7 +22,7 @@ class _GetDummyState extends State<GetDummy> {
       var body = response.body.toString();
       var json = jsonDecode(body);
       setState(() {
-        allPosts = json.map<PostsModel>((obj)=>PostsModel.fromJson(obj)).toList();
+        allPosts = json.map<Products>((obj)=>Products.fromJson(obj)).toList();
       });
     }
   }

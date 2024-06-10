@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:karon_api/api/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../models/produtsmodel.dart';
+import '../../models/mainproducts.dart';
 
 class HomeController extends GetxController{
 
   TextEditingController searchCon = TextEditingController();
+
+  List<MainProducts>? productList;
+  Api api = Api();
 
   var name = "".obs;
   var email = "".obs;
@@ -24,9 +27,5 @@ class HomeController extends GetxController{
     gender.value = prefs.getString("gender") ?? "";
     image.value = prefs.getString("image") ?? "";
   }
-
-
-  Rx<ProductsModel> allData = ProductsModel().obs;
-  Api api = Api();
 
 }

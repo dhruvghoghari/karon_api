@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import '../../api/api.dart';
+import '../../models/mainproducts.dart';
 
 class ProductController extends GetxController{
 
@@ -11,6 +13,11 @@ class ProductController extends GetxController{
   TextEditingController managerController = TextEditingController();
   TextEditingController projectController = TextEditingController();
   TextEditingController specialController = TextEditingController();
+
+
+  // var productList = <MainProducts> [].obs;
+  // Api api = Api();
+
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 

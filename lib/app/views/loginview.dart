@@ -1,6 +1,5 @@
-import 'dart:developer';
+import'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:karon_api/app/controllers/logincontroller.dart';
 import 'package:karon_api/app/views/mainpage.dart';
@@ -41,7 +40,7 @@ class _LoginViewState extends State<LoginView> {
                     hintText: 'Password',
                     iconData: Icons.lock,
                     obscureText: true,),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 20),
                   SubmitButton(
                       title: 'Login',
                     onPressed: () async{

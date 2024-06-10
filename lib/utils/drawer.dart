@@ -8,6 +8,7 @@ import 'package:karon_api/app/views/users/addproduct.dart';
 import 'package:karon_api/app/views/loginview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../app/views/login/Login.dart';
+import '../app/views/postsview.dart';
 import '../app/views/users/Singleuser.dart';
 import '../app/views/users/userdetails.dart';
 import '../app/views/users/userlist.dart';
@@ -25,6 +26,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
     return Drawer(
       child: ListView(
         children: [
+          ListTile(
+            title: Text("Posts"),
+            onTap: (){
+              Get.to(() => PostsView());
+            },
+          ),
           ListTile(
             title:  Text('users'),
             onTap: () {

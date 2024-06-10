@@ -1,11 +1,10 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:karon_api/app/controllers/homecontroller.dart';
-import 'package:karon_api/models/produtsmodel.dart';
+import 'package:karon_api/app/controllers/productcontroller.dart';
 import 'package:http/http.dart' as http;
 import '../../utils/drawer.dart';
+import '../../utils/responsive.dart';
 import 'detailsproduct.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,45 +16,47 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomeController homeCon = Get.put(HomeController());
+  ProductController productCon = Get.put(ProductController());
   TextEditingController searchController = TextEditingController();
 
-   List<ProductsModel>? allData;
+  //  List<ProductsModel>? allData;
+  //
+  // getData() async
+  // {
+  //   try{
+  //     Uri url = Uri.parse("https://dummyjson.com/products?limit=30");
+  //     var response = await http.get(url);
+  //     if(response.statusCode == 200){
+  //       var body = response.body.toString();
+  //       var json = jsonDecode(body);
+  //       setState(() {
+  //         allData = json['products'].map<ProductsModel>((obj)=>ProductsModel.fromJson(obj)).toList();
+  //       });
+  //       //print("get Data======"+allData.toString());
+  //     }
+  //   }
+  //   catch(ex){
+  //     print("error" + ex.toString());
+  //   }
+  // }
 
-  getData() async
-  {
-    try{
-      Uri url = Uri.parse("https://dummyjson.com/products?limit=30");
-      var response = await http.get(url);
-      if(response.statusCode == 200){
-        var body = response.body.toString();// json to convert to string
-        var json = jsonDecode(body);
-        setState(() {
-          allData = json['products'].map<ProductsModel>((obj)=>ProductsModel.fromJson(obj)).toList();
-        });
-        //print("get Data======"+allData.toString());
-      }
-    }
-    catch(ex){
-      print("error" + ex.toString());
-    }
-  }
-  
-  searchData(q) async {
-    Uri url= Uri.parse("https://dummyjson.com/products/search?q="+q);
-    var response = await http.get(url);
-    if(response.statusCode == 200){
-      var body = response.body.toString();
-      var json = jsonDecode(body);
-      setState(() {
-        allData = json['products'].map<ProductsModel>((obj) =>ProductsModel.fromJson(obj)).toList();
-      });
-    }
-  }
-
+  // searchData(q) async {
+  //   Uri url= Uri.parse("https://dummyjson.com/products/search?q="+q);
+  //   var response = await http.get(url);
+  //   if(response.statusCode == 200){
+  //     var body = response.body.toString();
+  //     var json = jsonDecode(body);
+  //     setState(() {
+  //       allData = json['products'].map<ProductsModel>((obj) =>ProductsModel.fromJson(obj)).toList();
+  //     });
+  //   }
+  // }
   @override
   void initState() {
     super.initState();
-    getData();
+    homeCon.api.getProducts()!.then((value){
+      homeCon.productList!;
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -90,18 +91,18 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ElevatedButton(onPressed: (){
                   var q = searchController.text.toString();
-                  searchData(q);
-                }, child: Text("Search"))
+                  //productCon.api.searchData(q);
+              }, child: Text("Search"))
               ],
             ),
-            Expanded(child: (allData!=null)?
+            Expanded(child: (homeCon.productList!=null)?
             ListView.builder(
-                itemCount: allData!.length,
+                itemCount:homeCon.productList!.length,
                 itemBuilder: (BuildContext context,int index){
                   return GestureDetector(
                     onTap: (){
                       Get.to(() => DetailsProduct(
-                          id: allData![index].id.toString()
+                          id: homeCon.productList![index].id.toString()
                       ));
                     },
                     child: Container(
@@ -120,33 +121,33 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: EdgeInsets.all(Responsive.height * 2),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(10.0).w,
+                              borderRadius: BorderRadius.circular(10.0),
                               child: Image.network(
-                                allData![index].thumbnail.toString(),
+                                homeCon.productList![index].thumbnail.toString(),
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            SizedBox(height: 10.h),
+                             hGap(1),
                             Text(
-                              allData![index].title.toString(),
+                              homeCon.productList![index].title.toString(),
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(height: 5),
+                            hGap(1),
                             Row(
                               children: [
                                 Icon(Icons.star, color: Colors.yellow[700]),
-                                SizedBox(width: 5.w),
+                                wGap(2),
                                 Text(
-                                  allData![index].rating.toString(),
+                                  homeCon.productList![index].rating.toString(),
                                   style: TextStyle(
                                     color: Colors.black54,
                                     fontSize: 16,
@@ -154,20 +155,20 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 5),
+                            hGap(1),
                             Text(
-                              allData![index].description.toString(),
+                              homeCon.productList![index].description.toString(),
                               style: TextStyle(
                                 color: Colors.black87,
                                 fontSize: 14,
                               ),
                             ),
-                            SizedBox(height: 5),
+                            hGap(1),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "\$${allData![index].price.toString()}",
+                                  "\$${homeCon.productList![index].price.toString()}",
                                   style: TextStyle(
                                     color: Colors.green,
                                     fontSize: 18,
@@ -175,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Text(
-                                  "Discount: ${allData![index].discountPercentage.toString()}%",
+                                  "Discount: ${homeCon.productList![index].discountPercentage.toString()}%",
                                   style: TextStyle(
                                     color: Colors.redAccent,
                                     fontSize: 16,
@@ -184,16 +185,16 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 5),
+                            hGap(1),
                             Text(
-                              "Brand: ${allData![index].brand.toString()}",
+                              "Brand: ${homeCon.productList![index].brand.toString()}",
                               style: TextStyle(
                                 color: Colors.black54,
                                 fontSize: 14,
                               ),
                             ),
                             Text(
-                              "Category: ${allData![index].category.toString()}",
+                              "Category: ${homeCon.productList![index].category.toString()}",
                               style: TextStyle(
                                 color: Colors.black54,
                                 fontSize: 14,

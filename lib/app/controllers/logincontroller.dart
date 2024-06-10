@@ -10,7 +10,6 @@ class LoginController extends GetxController{
 
   RxBool isLogin = false.obs;
   RxBool passwordVisible = false.obs;
-
   RxBool onLogin = false.obs;
 
   void passwordVisibility(){
