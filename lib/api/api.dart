@@ -21,9 +21,7 @@ class Api {
         return null;
       }
     } catch (ex) {
-      print("Error occurred: $ex");
-      return null;
-    }
+      return apiDialog(e.response!.data['message'])}
   }
 
 
